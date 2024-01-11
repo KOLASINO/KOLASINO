@@ -21,3 +21,52 @@ resource "azurerm_storage_account" "azstor" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
+
+#CREATING A TERRAFORM PIPELINE IN AZUREDEVOPS
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+parameters;
+resource group name
+name; kolarg
+type; string
+default; 'admin-rg'
+ 
+storage account name
+name; quadirstor
+type; string
+default; 'kolabfkstoract'
+ 
+container name
+name; container
+type; string
+default; 'terraformstate'
+ 
+tfstate file name
+name; key
+type; string
+default; terraform.dev.tfstatee
+stages;
+  - stage; 
+  displayName; plan
+  jobs;
+      job;
+      steps;
+      displayName; terraform init
+      - task: TerraformTaskV4@4
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: 'Azure Pass - Sponsorship(413a2653-cb8c-4f75-b1b0-46a3cb3e5da6)'
+          backendAzureRmResourceGroupName: 'kolarg'
+          backendAzureRmStorageAccountName: 'kolabfkstoract'
+          backendAzureRmContainerName: 'terraformstate'
+          backendAzureRmKey: 'terraform.dev.tfstatee'
